@@ -1,0 +1,26 @@
+name: COCO_2017
+init: |
+  import os
+  import json
+  dataset = {}
+  image_list = []
+  def init(count):
+    data_dir = os.environ['DATA_DIR']
+    data_dir = os.path.expanduser(data_dir)
+    annotation_file = os.path.join(data_dir, "annotations/instances_val2017.json")
+    with open(annotation_file, "r") as f:
+      coco = json.load(f)
+    res = 0
+    for i in coco["images"]:
+      image_list.append(os.path.join(data_dir, "val2017", i["file_name"]))
+      res += 1
+      if count > 0 and res >= count:
+        break
+    return res
+load: |
+  def load(sample_list):
+    for sample in sample_list:
+      dataset[sample] = image_list[sample]
+unload: |
+  def unload(sample_list):
+    dataset = {}
