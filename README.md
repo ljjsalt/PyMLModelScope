@@ -5,7 +5,7 @@ Migarte from Go to Python
 ## Roles and its implementation
 
 - Server - FastAPI & gPPC client
-- Agent - ray instance (grpc server)
+- Agent - ray cluster/grpc server
 - Client - HTTP Requests
 
 ## Project Management
